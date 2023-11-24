@@ -1,5 +1,20 @@
 let map;
 
+function readCSV(input) {
+  fetch(input)
+    .then(response => response.text())
+    .then(data => {
+      const lines = data.split('/n');
+      const header = lines[0].split(',');
+
+      return {
+        header: header,
+        lines: lines
+      }
+
+    })
+}
+
 async function initMap() {
 
     const { Map } = await google.maps.importLibrary("maps");
@@ -53,3 +68,7 @@ async function initMap() {
   }
 
   initMap();
+
+  let x = readCSV('hikelog.csv');
+  alert(x.header);
+  alert(x.lines);

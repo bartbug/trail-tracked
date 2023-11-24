@@ -1,7 +1,8 @@
 
 body {
     height: 95vh;
-    background-color: blanchedalmond;
+    background-color: lightgoldenrodyellow;
+    
 
     margin: 0;
 }
@@ -15,7 +16,7 @@ body {
 
 .panelwindows {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 3fr 1fr;
     background-color: aqua;
     
     
