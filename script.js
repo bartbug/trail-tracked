@@ -71,8 +71,9 @@ async function initMap() {
   
         // Set the Polyline on the map
         polyline.setMap(map);
-        const [latitude, longitude] = lines[lines.length - 1].split(',');
-        map.center = { lat: latitude, lng: longitude };
+        const [latitude, longitude, info] = lines[lines.length - 1].split(',');
+        console.log(latitude + " " + longitude);
+        map.center = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
       })
       .catch(error => console.error('Error fetching the CSV file:', error));
   }
