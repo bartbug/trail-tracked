@@ -58,8 +58,7 @@ async function initMap() {
           }
         }
 
-        const [latitude, longitude] = lines[lines.length].split(',');
-        map.center = { lat: latitude, lng: longitude };
+        
   
         // Create a Polyline using the pathCoordinates array
         const polyline = new google.maps.Polyline({
@@ -72,6 +71,8 @@ async function initMap() {
   
         // Set the Polyline on the map
         polyline.setMap(map);
+        const [latitude, longitude] = lines[lines.length - 1].split(',');
+        map.center = { lat: latitude, lng: longitude };
       })
       .catch(error => console.error('Error fetching the CSV file:', error));
   }
