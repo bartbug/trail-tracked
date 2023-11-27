@@ -1,18 +1,24 @@
 let map;
 
 function readCSV(input) {
+  let header;
+  let lines;
+  
   fetch(input)
     .then(response => response.text())
     .then(data => {
-      const lines = data.split('/n');
-      const header = lines[0].split(',');
+      lines = data.split('\n');
+      header = lines[0].split(',');
+      console.log(header);
 
-      return {
-        header: header,
-        lines: lines
-      }
+      
 
-    })
+    });
+    console.log(header);
+    return {
+      a: header,
+      b: lines
+    }
 }
 
 async function initMap() {
@@ -51,6 +57,9 @@ async function initMap() {
             });
           }
         }
+
+        const [latitude, longitude] = lines[lines.length].split(',');
+        map.center = { lat: latitude, lng: longitude };
   
         // Create a Polyline using the pathCoordinates array
         const polyline = new google.maps.Polyline({
@@ -70,5 +79,4 @@ async function initMap() {
   initMap();
 
   let x = readCSV('hikelog.csv');
-  alert(x.header);
-  alert(x.lines);
+  console.log(x.a);
