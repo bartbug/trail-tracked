@@ -1,25 +1,5 @@
 let map;
 
-function readCSV(input) {
-  let header;
-  let lines;
-  
-  fetch(input)
-    .then(response => response.text())
-    .then(data => {
-      lines = data.split('\n');
-      header = lines[0].split(',');
-      console.log(header);
-
-      
-
-    });
-    console.log(header);
-    return {
-      a: header,
-      b: lines
-    }
-}
 
 async function initMap() {
 
@@ -32,6 +12,9 @@ async function initMap() {
     });
    
     // Read the CSV file and add markers to the map
+    const logBook = document.querySelector("#logbook");
+
+
     fetch('hikelog.csv') // Replace 'yourfile.csv' with the path to your CSV file
       .then(response => response.text())
       .then(data => {
@@ -39,6 +22,13 @@ async function initMap() {
         const pathCoordinates = [];
         for (let i = 1; i < lines.length; i++) {
           const [latitude, longitude, info] = lines[i].split(',');
+          const log = document.createElement("div");
+          
+          log.classList.add('log');
+          log.textContent = info;
+
+          logBook.appendChild(log);
+
           if (latitude && longitude) {
             const marker = new google.maps.Marker({
               position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
@@ -59,6 +49,8 @@ async function initMap() {
         }
 
         
+
+        
   
         // Create a Polyline using the pathCoordinates array
         const polyline = new google.maps.Polyline({
@@ -73,12 +65,12 @@ async function initMap() {
         polyline.setMap(map);
         const [latitude, longitude, info] = lines[lines.length - 1].split(',');
         console.log(latitude + " " + longitude);
-        map.center = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+        map.setCenter({lat: parseFloat(latitude), lng: parseFloat(longitude)});
+        //map.center = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
       })
       .catch(error => console.error('Error fetching the CSV file:', error));
+
   }
 
   initMap();
 
-  let x = readCSV('hikelog.csv');
-  console.log(x.a);
