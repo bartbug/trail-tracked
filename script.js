@@ -24,6 +24,7 @@ async function initMap() {
           const [latitude, longitude, info] = lines[i].split(',');
           const log = document.createElement("div");
           
+          log.id = i;
           log.classList.add('log');
           log.textContent = info;
 
@@ -48,7 +49,20 @@ async function initMap() {
           }
         }
 
-        
+        logBook.addEventListener('scroll', () => {
+          const scrollLeft = logBook.scrollLeft;
+          const containerWidth = logBook.clientWidth;
+
+          const center = scrollLeft + containerWidth / 2;
+
+          const centeredDiv = Array.from(logBook.children).find((div) => {
+            const divLeft = div.offsetLeft;
+            const divWidth = div.clientWidth;
+            return divLeft <= center && divLeft + divWidth >= center;
+          });
+          const [latitude, longitude, info] = lines[centeredDiv.id].split(',');
+          map.panTo({lat: parseFloat(latitude), lng: parseFloat(longitude)});
+        })
 
         
   
