@@ -1,4 +1,5 @@
 let map;
+let infowindow;
 
 
 async function initMap() {
@@ -10,6 +11,8 @@ async function initMap() {
         
         zoom: 8,
     });
+
+    infowindow = new google.maps.InfoWindow();
    
     // Read the CSV file and add markers to the map
     const logBook = document.querySelector("#logbook");
@@ -21,7 +24,7 @@ async function initMap() {
         const lines = data.split('\n');
         const pathCoordinates = [];
         for (let i = 1; i < lines.length; i++) {
-          const [latitude, longitude, info] = lines[i].split(',');
+          const [date, title, latitude, longitude, info, url] = lines[i].split(',');
           const log = document.createElement("div");
           
           log.id = i;
@@ -30,23 +33,56 @@ async function initMap() {
 
           logBook.appendChild(log);
 
+
+
           if (latitude && longitude) {
+
+            let contentString;
+            
+            if (url) {
+               contentString =
+              `<div>${date}</div>` +
+              `<div>${title}</div>` +
+              '<div class = "twopanel">' +
+              `<p>${info}</p>` +
+              '<iframe width="280" height="158"' +
+              `src=${url} ` +
+              'title="YouTube video player" frameborder="0" allow="accelerometer; ' +
+              'autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; ' +
+              'web-share" allowfullscreen></iframe>' +
+              '</div>';
+            }
+            else {
+               contentString =
+              `<div>${date}</div>` +
+              `<div>${title}</div>` +
+              `<p>${info}</p>`;
+            }
+
+            
+            
+
             const marker = new google.maps.Marker({
               position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
               map: map,
-              title: info,
+              title: title,
+              descrip: contentString,
+
             });
+
+
   
             pathCoordinates.push(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
-  
-            const infowindow = new google.maps.InfoWindow({
-              content: `<p>${info}</p>`,
-            });
-  
-            marker.addListener('click', () => {
+            
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setOptions({
+                content: this.descrip,
+              });
               infowindow.open(map, marker);
             });
+
           }
+            
         }
 
         logBook.addEventListener('scroll', () => {
@@ -60,8 +96,11 @@ async function initMap() {
             const divWidth = div.clientWidth;
             return divLeft <= center && divLeft + divWidth >= center;
           });
-          const [latitude, longitude, info] = lines[centeredDiv.id].split(',');
-          map.panTo({lat: parseFloat(latitude), lng: parseFloat(longitude)});
+          if (centeredDiv) {
+            const [date, title, latitude, longitude, info, url] = lines[centeredDiv.id].split(',');
+            map.panTo({lat: parseFloat(latitude), lng: parseFloat(longitude)});
+          }
+          
         })
 
         
@@ -77,12 +116,12 @@ async function initMap() {
   
         // Set the Polyline on the map
         polyline.setMap(map);
-        const [latitude, longitude, info] = lines[lines.length - 1].split(',');
+        const [date, title, latitude, longitude, info, url] = lines[lines.length - 1].split(',');
         console.log(latitude + " " + longitude);
         map.setCenter({lat: parseFloat(latitude), lng: parseFloat(longitude)});
-        //map.center = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
       })
       .catch(error => console.error('Error fetching the CSV file:', error));
+      
 
   }
 
