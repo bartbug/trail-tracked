@@ -12,6 +12,12 @@ async function initMap() {
         zoom: 8,
     });
 
+    const lineSymbol = {
+      path: "M 0,-1 0,1",
+      strokeOpacity: 1,
+      scale: 4,
+    };
+
     infowindow = new google.maps.InfoWindow();
     let markers = [];
     icon = "/campfire.png";
@@ -152,8 +158,15 @@ async function initMap() {
           path: pathCoordinates,
           geodesic: true,
           strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
+          strokeOpacity: 0,
+          icons: [
+            {
+              icon: lineSymbol,
+              offset: "0",
+              repeat: "20px",
+            }
+            
+          ]
         });
   
         // Set the Polyline on the map
