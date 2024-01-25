@@ -22,11 +22,12 @@
 
 
  body {
-    background-image: url('background.jpeg');
+    /*background-image: url('background.jpeg');
     background-attachment: fixed;
-    background-size: cover;
-    margin-top: 100px;
-    overflow-y: hidden;
+    background-size: cover; */
+    margin-top: 100px; 
+    margin-left: 0px;
+    
  }
 
  .panelwindows {
@@ -77,9 +78,6 @@ h1 {
 
 #logbook {
     background-color: white;
-    border-color: black;
-    border-radius: 10px;
-    border-style: solid;
     margin: 10px;
     display: flex;
     overflow-x: scroll;
@@ -98,12 +96,11 @@ h1 {
     padding: 10px;
     text-align: center;
     overflow-wrap: normal;
+    border-radius: 25px;
     background-color: bisque;
-    border-color: lightgray;
-    border-style: ridge;
     box-shadow: inset;
     overflow-y: scroll;
-    width: 50vw;
+    width: 48vw;
     visibility: hidden;
 
 

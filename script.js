@@ -50,8 +50,7 @@ async function initMap() {
 
           log.appendChild(logDate);
           log.appendChild(logTitle);
-        
-          log.setAttribute('tabindex', '-1');
+
           logBook.appendChild(log);
 
           console.log(latitude + " " + longitude);
