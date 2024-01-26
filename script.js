@@ -8,8 +8,9 @@ async function initMap() {
 
     map = new Map(document.getElementById("map"), {
         center: { lat: 34.792, lng: -81.644 },
-        
+        mapId: "b4e05492cfb0d627",
         zoom: 8,
+        mapTypeId: 'terrain'
     });
 
     const lineSymbol = {
@@ -21,19 +22,26 @@ async function initMap() {
     infowindow = new google.maps.InfoWindow();
     let markers = [];
     icon = "/campfire.png";
+    let logURLS = [];
    
     // Read the CSV file and add markers to the map
     const logBook = document.querySelector("#logbook");
 
-
-    fetch('hikelog.csv') 
-      .then(response => response.text())
-      .then(data => {
-        const lines = data.split('\n');
+    try {
+      const response = await fetch('hikelog.csv');
+      if(!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.text();
+      const lines = data.split('\n');
         const pathCoordinates = [];
         for (let i = 1; i < lines.length; i++) {
           const [id, date, title, latitude, longitude, info, url] = lines[i].split(',');
           const log = document.createElement("div");
+          const logbody = document.createElement("div");
+          const logheader = document.createElement("div");
+
+          logURLS.push('logs/' + info);
           
           log.id = Number(id);
           log.classList.add('log');
@@ -45,15 +53,18 @@ async function initMap() {
           const logTitle = document.createElement("div");
           logTitle.textContent = title;
           logTitle.classList.add('logtitle');
+      
 
           
 
-          log.appendChild(logDate);
-          log.appendChild(logTitle);
+          logheader.appendChild(logTitle);
+          logheader.appendChild(logDate);
+
+          logheader.classList.add('logheader');
+
+          log.appendChild(logheader);
 
           logBook.appendChild(log);
-
-          console.log(latitude + " " + longitude);
 
           if (latitude && longitude) {
 
@@ -61,10 +72,6 @@ async function initMap() {
             
             if (url) {
                contentString =
-              `<div>${date}</div>` +
-              `<div>${title}</div>` +
-              '<div class = "twopanel">' +
-              `<p>${info}</p>` +
               '<iframe width="280" height="158"' +
               `src=${url} ` +
               'title="YouTube video player" frameborder="0" allow="accelerometer; ' +
@@ -72,13 +79,6 @@ async function initMap() {
               'web-share" allowfullscreen></iframe>' +
               '</div>';
             }
-            else {
-               contentString =
-              `<div>${date}</div>` +
-              `<div>${title}</div>` +
-              `<p>${info}</p>`;
-            }
-
             
             
 
@@ -114,27 +114,20 @@ async function initMap() {
         logBook.addEventListener('scroll', () => {
           const scrollLeft = logBook.scrollLeft;
           const containerWidth = logBook.clientWidth;
+          const containerCenter = scrollLeft + containerWidth / 2;
 
-          const logs = document.querySelectorAll('.log');
+          let centeredDiv = null;
+          let cumulativeWidth = 0;
 
-          const center = scrollLeft + containerWidth / 2;
-
-          const centeredDiv = Array.from(logBook.children).find((div) => {
-            const divLeft = div.offsetLeft;
+          for (const div of logBook.children) {
             const divWidth = div.clientWidth;
-            return divLeft <= center && divLeft + divWidth >= center;
-          });
-
-          logs.forEach(log => {
-            if (log === centeredDiv) {
-                log.style.visibility = "visible";
-            } else 
-            {
-              log.style.visibility = "hidden";
+            cumulativeWidth += divWidth;
+    
+            if (cumulativeWidth >= containerCenter) {
+                centeredDiv = div;
+                break;
             }
-          });
-         
-
+          } 
           
           
           if (centeredDiv) {
@@ -171,13 +164,56 @@ async function initMap() {
         // Set the Polyline on the map
         polyline.setMap(map);
         const [id, date, title, latitude, longitude, info, url] = lines[lines.length - 1].split(',');
-        console.log(latitude + " " + longitude);
         map.setCenter({lat: parseFloat(latitude), lng: parseFloat(longitude)});
-      })
-      .catch(error => console.error('Error fetching the CSV file:', error));
+    } catch (error) {
+      console.error("Error fetching the CSV file:", error);
+    }
+    
       
-
   }
 
-  initMap();
+  async function loadEntries() {
+    const logs = document.querySelectorAll('#logbook >.log');
+    for (let i = 0; i < logs.length; i++) {
+      let url = 'logs/' + String(i) + '.txt';
+      let entry = await loadTextFile(url);
+      if (entry) {
+        logbody = document.createElement("div");
+        logbody.textContent = entry;
+        logbody.classList.add('logbody');
+        logs[i].appendChild(logbody);
+      }
+    }
+
+    
+    const day0 = logs[0].cloneNode(true);
+    const daynow = logs[logs.length-1].cloneNode(true);
+
+    const firstDay = document.querySelector('#firstday');
+    const currentDay =document.querySelector('#currentday');
+
+    firstDay.appendChild(day0);
+    currentDay.appendChild(daynow);
+   
+  }
+
+  async function loadTextFile(url) {
+    try {
+        let response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        let text = await response.text();
+        return text; // This text is the content of your file
+    } catch (error) {
+        console.error('Error fetching the text file:', error);
+    }
+}
+
+async function main() {
+  await initMap();
+  loadEntries();
+}
+
+main();
 
