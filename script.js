@@ -190,10 +190,15 @@ async function initMap() {
     const daynow = logs[logs.length-1].cloneNode(true);
 
     const firstDay = document.querySelector('#firstday');
-    const currentDay =document.querySelector('#currentday');
+    const currentDay = document.querySelector('#currentday');
 
-    firstDay.appendChild(day0);
-    currentDay.appendChild(daynow);
+    if (window.innerWidth > 750) {
+      firstDay.appendChild(day0);
+      currentDay.appendChild(daynow);
+    } else {
+      firstDay.remove();
+      currentDay.remove();
+    }
    
   }
 
