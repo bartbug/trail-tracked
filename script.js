@@ -15,7 +15,8 @@ async function initMap() {
         center: { lat: 34.792, lng: -81.644 },
         mapId: "b4e05492cfb0d627",
         zoom: 8,
-        mapTypeId: 'satellite'
+        mapTypeId: 'satellite',
+        gestureHandling: "greedy"
     });
 
     
