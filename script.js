@@ -1,6 +1,11 @@
 let map;
 let infowindow;
 
+function randEmoji() {
+  let emojiList = ['🫡','🐌','🇨🇦','🤬','🫥','💩','🦁','🍄','❄️','🍌','🍆','🍺','🥉','🛵','⛰️','🫵'];
+  return emojiList[Math.floor(Math.random() * emojiList.length)];
+}
+
 
 async function initMap() {
 
@@ -10,8 +15,10 @@ async function initMap() {
         center: { lat: 34.792, lng: -81.644 },
         mapId: "b4e05492cfb0d627",
         zoom: 8,
-        mapTypeId: 'terrain'
+        mapTypeId: 'satellite'
     });
+
+    
 
     const lineSymbol = {
       path: "M 0,-1 0,1",
@@ -68,7 +75,8 @@ async function initMap() {
 
           if (latitude && longitude) {
 
-            let contentString;
+            let contentString = 
+              `<div><h3>in lieu of video, emoji</h3><h1>${randEmoji()}</h1></div>`
             
             if (url) {
                contentString =
@@ -98,12 +106,16 @@ async function initMap() {
   
             pathCoordinates.push(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
             
-            google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setOptions({
-                content: this.descrip,
+            if (url) {
+              google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setOptions({
+                  content: this.descrip,
+                });
+                infowindow.open(map, marker);
               });
-              infowindow.open(map, marker);
-            });
+            }
+            
+            
 
           }
             
@@ -185,20 +197,9 @@ async function initMap() {
       }
     }
 
-    
-    const day0 = logs[0].cloneNode(true);
-    const daynow = logs[logs.length-1].cloneNode(true);
+    //logs[logs.length - 1].scrollIntoView(true);
 
-    const firstDay = document.querySelector('#firstday');
-    const currentDay = document.querySelector('#currentday');
 
-    if (window.innerWidth > 750) {
-      firstDay.appendChild(day0);
-      currentDay.appendChild(daynow);
-    } else {
-      firstDay.remove();
-      currentDay.remove();
-    }
    
   }
 
@@ -218,6 +219,7 @@ async function initMap() {
 async function main() {
   await initMap();
   loadEntries();
+
 }
 
 main();
