@@ -9,6 +9,8 @@
     margin-bottom: 10px;
 
     color: black;
+    overflow: hidden;
+
     
 
   }
@@ -169,6 +171,7 @@ html {
     width: 100%;
     margin: 0;
     background-color: rgba(37, 65, 37, 0.53);
+
 
     
     

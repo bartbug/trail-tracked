@@ -115,7 +115,7 @@ async function initMap() {
               infowindow.open(map, marker);
 
               const log = document.getElementById(this.marker_id);
-              log.scrollIntoView(true);
+              log.scrollIntoView(false);
 
               });
             
@@ -202,7 +202,7 @@ async function initMap() {
       }
     }
 
-    logs[logs.length - 1].scrollIntoView(true);
+    logs[logs.length - 1].scrollIntoView(false);
 
 
    
