@@ -107,14 +107,18 @@ async function initMap() {
   
             pathCoordinates.push(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
             
-            if (url) {
-              google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setOptions({
-                  content: this.descrip,
-                });
-                infowindow.open(map, marker);
+    
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setOptions({
+                content: this.descrip,
               });
-            }
+              infowindow.open(map, marker);
+
+              const log = document.getElementById(this.marker_id);
+              log.scrollIntoView(true);
+
+              });
+            
             
             
 
@@ -198,7 +202,7 @@ async function initMap() {
       }
     }
 
-    //logs[logs.length - 1].scrollIntoView(true);
+    logs[logs.length - 1].scrollIntoView(true);
 
 
    
