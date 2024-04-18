@@ -4,5 +4,6 @@ id, date, title, latitude, longitude, info, url
 2, 4/8/24, Tuna Ramen, 34.666569, -84.148682, 2.txt, https://www.youtube.com/embed/9NS735hcfXA?si=KNgLwV_GnIhYo6sz
 3, 4/9/24, Rain Rain Go Away, 34.6559677, -84.0501697, 3.txt, https://www.youtube.com/embed/DzsxXUOZfJU?si=8kKLtBb1SfPI1Hax
 4, 4/10/24, Come Again..?, 34.67759, -83.99993, 4.txt, https://www.youtube.com/embed/-WhrPQxGzU0?si=Bl5Hrnw-k_-JdZr2
-5, 4/11/24, Some Other Day, 34.7374718, -83.9549460, 5.txt
-6, 4/12/24, Big Spooky, 34.7273789, -83.8390511, 6.txt
+5, 4/11/24, Some Other Day, 34.7374718, -83.9549460, 5.txt, https://www.youtube.com/embed/3Qd-TMtrJvg?si=mirWXvSLO4ZYvlIJ
+6, 4/12/24, Big Spooky, 34.7273789, -83.8390511, 6.txt, https://www.youtube.com/embed/l5F3BkxjAy8?si=Y1Z8-hPKxNMqu8vV
+7, 4/13/24, Man Discovers Fire, 34.81723, -83.76677, 7.txt
