@@ -6,14 +6,14 @@ id, date, title, latitude, longitude, info, url
 4, 4/10/24, Come Again..?, 34.67759, -83.99993, 4.txt, https://www.youtube.com/embed/-WhrPQxGzU0?si=Bl5Hrnw-k_-JdZr2
 5, 4/11/24, Some Other Day, 34.7374718, -83.9549460, 5.txt, https://www.youtube.com/embed/3Qd-TMtrJvg?si=mirWXvSLO4ZYvlIJ
 6, 4/12/24, Big Spooky, 34.7273789, -83.8390511, 6.txt, https://www.youtube.com/embed/l5F3BkxjAy8?si=Y1Z8-hPKxNMqu8vV
-7, 4/13/24, Man Discovers Fire, 34.81723, -83.76677, 7.txt
-8, 4/14/24, Green Dragon, 34.80174, -83.74284, 8.txt
-9, 4/15/24, Slackpacking,34.91216, -83.61890, 9.txt
-10, 4/16/24, Carolina, 35.0204873, -83.5815399, 10.txt
+7, 4/13/24, Man Discovers Fire, 34.81723, -83.76677, 7.txt, https://www.youtube.com/embed/ZpX1FXD6Ny8?si=257Dn6WkkiCdxlxI
+8, 4/14/24, Green Dragon, 34.80174, -83.74284, 8.txt, https://www.youtube.com/embed/n9qSf6LCRYE?si=bA3oX4XLhuPj8nqE
+9, 4/15/24, Slackpacking,34.91216, -83.61890, 9.txt, https://www.youtube.com/embed/U59GTd3dSLs?si=qe3kZqXyiQsh3vAr
+10, 4/16/24, Carolina, 35.0204873, -83.5815399, 10.txt, https://www.youtube.com/embed/f6p8kq2cq9E?si=Etb1G0g96c2v7Tg-
 11, 4/17/24, Sour, 34.8913611, -83.5338388, 11.txt
-12, 4/18/24, Tilted Towers, 35.0922323, -83.5237259, 12.txt
-13, 4/19/24, Something Bangable, 35.18230, -83.38150, 13.txt
-14, 4/20/24, An Egg in a Trying Time, 35.2263153, -83.4129500, 14.txt
-15, 4/21/24 - 4/22/24, Between a NOC and a Hard Place, 35.33296, -83.59228, 15.txt
+12, 4/18/24, Tilted Towers, 35.0922323, -83.5237259, 12.txt, https://www.youtube.com/embed/KXYYwyd3GJM?si=aNgtZXYLxCpn6MUI
+13, 4/19/24, Something Bangable, 35.18230, -83.38150, 13.txt, https://www.youtube.com/embed/RTBl9PFKwJc?si=kAiORMhfCAsriGS0
+14, 4/20/24, An Egg in a Trying Time, 35.2263153, -83.4129500, 14.txt, https://www.youtube.com/embed/3JptvcGwark?si=O_ka9Kcg2mnUHXQM
+15, 4/21/24 - 4/22/24, Between a NOC and a Hard Place, 35.33296, -83.59228, 15.txt, https://www.youtube.com/embed/6vM56QxR_L0?si=MbEIBp_EDxAdLgqp
 16, 4/23/24, Short Straight Up, 35.330776, -83.666916, 16.txt
 17, 4/24/24, 15 and Feet Hurt, 35.4151192, -83.7730070, 17.txt
